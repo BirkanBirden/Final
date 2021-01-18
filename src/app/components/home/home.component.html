@@ -1,0 +1,103 @@
+<app-navbar></app-navbar>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      Merhaba <b>{{adsoyad}}</b>,
+      <button class="btn btn-outline-danger" style="float:right" (click)="OturumKapat()"
+        *ngIf="fbServis.OturumKontrol()">Oturumu
+        Kapat</button>
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="card mt-3" *ngFor="let kayit of kayitlar">
+        <div class="card-header">
+          <h4>{{kayit.isim}}</h4>
+          <div style="float: right;">
+            <button class="btn btn-outline-info btn-sm" [routerLink]="['/kayitdetay',kayit.key]">Detay</button>
+            <button class="btn btn-outline-warning btn-sm ml-3"
+              [routerLink]="['/kayitduzenle',kayit.key]">Düzenle</button>
+            <button class="btn btn-outline-danger btn-sm ml-3" [routerLink]="['/kayitsil',kayit.key]">Sil</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div [innerHTML]="kayit.aciklama"></div>
+        </div>
+        <div class="card-footer">
+          <b>Eklenme Tarihi :</b>{{kayit.kayTarih | date:'dd.MM.yyyy HH:mm:ss'}} <br>
+          <b>Düzenlenme Tarihi :</b>{{kayit.duzTarih | date:'dd.MM.yyyy HH:mm:ss'}} <br>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row alert alert-danger" *ngIf="silme">
+      <div class="col-md-12">
+        <p> <b>{{secUrun.no}}</b> İsimli bayi silinecektir. Onaylıyor musunuz?</p>
+        <button class="btn btn-outline-danger btn-sm" (click)="Sil()">Evet</button>
+        <button class="btn btn-outline-primary btn-sm ml-2" (click)="silme=false;">Hayır</button>
+      </div>
+    </div>
+    <div class="row alert alert-secondary" *ngIf="detay">
+      <div class="col-md-6">
+        <h5>Bayiler</h5>
+        <p>{{secUrun.no}}</p>
+        <h5>Sıralama</h5>
+        <p>{{secUrun.fiyat}}</p>
+      </div>
+    </div>
+    <div class="row" *ngIf="ekleduzenle">
+      <div class="col-md-12 alert alert-secondary">
+        <h4>Bayi Ekle - Düzenle</h4>
+        <form #frm="ngForm" (submit)="Kaydet()">
+          <div class="form-group">
+            <label>Bayiler</label>
+            <input type="text" class="form-control" name="menuNo" [(ngModel)]="secUrun.no">
+          </div>
+          <div class="form-group">
+            <label>Sıralama</label>
+            <input class="form-control" name="aciklama" [(ngModel)]="secUrun.fiyat">
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Ekle" class="btn btn-outline-success btn-sm">
+            <button class="btn btn-outline-danger btn-sm ml-2" (click)="ekleduzenle=false;">Kapat</button>
+          </div>
+        </form>
+        <div [ngClass]="sonuc2.islem1 ? 'alert alert-success':'alert alert-danger'" *ngIf="sonuc2.mesaj1?.length>0">
+          {{sonuc2.mesaj1}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-outline-info btn-sm" (click)="ekleduzenle=true;">Bayi Ekle</button>
+        <table class="table mt-2">
+          <thead>
+            <td>Bayi</td>
+            <td>Bilgi</td>
+            <td>Sil</td>
+          </thead>
+          <tbody>
+            <tr *ngFor="let urun  of urunler">
+              <td>{{urun.no}}</td>
+              <td><button class="btn btn-outline-info btn-sm" (click)="UrunSec(urun);detay=true;">Bilgi</button>
+              </td>
+              <td><button class="btn btn-outline-danger btn-sm" (click)="UrunSec(urun);silme=true;">Sil</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+</div>

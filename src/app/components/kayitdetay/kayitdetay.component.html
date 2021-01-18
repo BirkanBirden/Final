@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12 mt-5">
+
+      <button class="btn btn-outline-primary" [routerLink]="['/']">Kayıtları Listele</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="card mt-3">
+        <div class="card-header">
+          <h4>{{secKayit.isim}}</h4>
+        </div>
+        <div class="card-body">
+          <div [innerHTML]="secKayit.aciklama"></div>
+        </div>
+        <div class="card-footer">
+          <!-- <b>Eklenme Tarihi :</b>{{secKayit.kayTarih | date:'dd.MM.yyyy HH:mm:ss'}} <br>
+          <b>Düzenlenme Tarihi :</b>{{secKayit.duzTarih | date:'dd.MM.yyyy HH:mm:ss'}} <br> -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
